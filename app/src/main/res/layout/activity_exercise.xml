@@ -36,20 +36,26 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/toolbar_act">
+        app:layout_constraintTop_toBottomOf="@id/toolbar_act"
+        >
 
         <ProgressBar
             android:id="@+id/progbar"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
             style="?android:attr/progressBarStyleHorizontal"
+            android:layout_width="100dp"
+            android:layout_height="93dp"
             android:layout_gravity="center"
             android:background="@drawable/circular_progress_bar_grey"
-            android:progressDrawable="@drawable/circular_progress_bar"
             android:indeterminate="false"
             android:max="10"
             android:progress="100"
-            android:rotation="-90"/>
+            android:progressDrawable="@drawable/circular_progress_bar"
+            android:rotation="-90" />
+
+
+
+
+
 
         <LinearLayout
             android:layout_width="60dp"
@@ -68,6 +74,28 @@
                 android:text="10"/>
         </LinearLayout>
     </FrameLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/tvUpcoming"
+        android:text="Upcoming Exercise:"
+        android:textSize="22sp"
+        app:layout_constraintTop_toBottomOf="@id/flprogbar"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/exerciseName"
+        android:text="Jumping Jacks"
+        android:textStyle="bold"
+        android:textSize="25sp"
+        app:layout_constraintTop_toBottomOf="@id/tvUpcoming"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        />
 
     <ImageView
         android:id="@+id/ivimage"

@@ -42,6 +42,12 @@ class ExerciseActivity : AppCompatActivity() {
         binding.tvTitle.visibility=View.VISIBLE
         binding.tvExercise.visibility=View.INVISIBLE
         binding.ivimage.visibility=View.INVISIBLE
+        binding.tvUpcoming.visibility=View.VISIBLE
+        binding.exerciseName.visibility=View.VISIBLE
+
+
+        binding.exerciseName.text= exerciseList!![currentExercisePosition+1].getName()
+
 
 
 
@@ -88,6 +94,8 @@ class ExerciseActivity : AppCompatActivity() {
         binding.tvTitle.visibility=View.INVISIBLE
         binding.tvExercise.visibility=View.VISIBLE
         binding.ivimage.visibility=View.VISIBLE
+        binding.tvUpcoming.visibility=View.INVISIBLE
+        binding.exerciseName.visibility=View.INVISIBLE
 
         if(exerciseTimer!=null)
         {
