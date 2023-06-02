@@ -9,6 +9,7 @@ import android.speech.tts.TextToSpeech
 import android.util.Log
 import android.view.View
 import android.widget.Toast
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.a7minutesworkout.databinding.ActivityExerciseBinding
 import com.example.a7minutesworkout.databinding.ActivityMainBinding
 import org.w3c.dom.Text
@@ -25,6 +26,8 @@ class ExerciseActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
     private var currentExercisePosition=-1
     private var tts:TextToSpeech?=null
     private var player:MediaPlayer?=null
+
+    private var exerciseAdapter:ExerciseStatusAdapter?=null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityExerciseBinding.inflate(layoutInflater)
@@ -44,7 +47,16 @@ class ExerciseActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
         }
 
         setupRestView()
+        setupExerciseStatusRecyclerView()
 
+    }
+
+    private fun setupExerciseStatusRecyclerView(){
+        binding?.exerciseStatus?.layoutManager=
+            LinearLayoutManager(this,LinearLayoutManager.HORIZONTAL,false)
+
+        exerciseAdapter=ExerciseStatusAdapter(exerciseList!!)
+        binding?.exerciseStatus?.adapter=exerciseAdapter
     }
 
     private fun setupRestView(){
