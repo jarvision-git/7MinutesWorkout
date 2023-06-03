@@ -1,5 +1,6 @@
 package com.example.a7minutesworkout
 
+import android.app.Dialog
 import android.media.MediaPlayer
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
@@ -9,9 +10,11 @@ import android.speech.tts.TextToSpeech
 import android.util.Log
 import android.view.View
 import android.widget.Toast
+import androidx.activity.OnBackPressedCallback
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.a7minutesworkout.databinding.ActivityExerciseBinding
 import com.example.a7minutesworkout.databinding.ActivityMainBinding
+import com.example.a7minutesworkout.databinding.DialogBackBinding
 import org.w3c.dom.Text
 import java.lang.Exception
 import java.util.Locale
@@ -42,13 +45,43 @@ class ExerciseActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
         exerciseList=Constants.defaultExerciseList()
 
 
-        binding.toolbarAct.setNavigationOnClickListener {
+//        binding.toolbarAct.setNavigationOnClickListener {
+//            dialogBack()
+//
 
+        val callback = object : OnBackPressedCallback(
+            true // default to enabled
+        ) {
+            override fun handleOnBackPressed() {
+                dialogBack()
+            }
         }
+        onBackPressedDispatcher.addCallback(
+            this, // LifecycleOwner
+            callback
+        )
+
 
         setupRestView()
         setupExerciseStatusRecyclerView()
 
+    }
+
+    private fun dialogBack(){
+        val customDialog= Dialog(this)
+        val dialogBinding=DialogBackBinding.inflate(layoutInflater)
+        customDialog.setContentView(dialogBinding.root)
+        customDialog.setCanceledOnTouchOutside(false)
+        dialogBinding.btnYes.setOnClickListener{
+            this@ExerciseActivity.finish()
+            customDialog.dismiss()
+
+        }
+        dialogBinding.btnNo.setOnClickListener{
+            customDialog.dismiss()
+
+        }
+        customDialog.show()
     }
 
     private fun setupExerciseStatusRecyclerView(){
