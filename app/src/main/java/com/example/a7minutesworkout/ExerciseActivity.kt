@@ -80,6 +80,8 @@ class ExerciseActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
         dialogBinding.btnNo.setOnClickListener{
             customDialog.dismiss()
 
+
+
         }
         customDialog.show()
     }
