@@ -115,6 +115,7 @@
         android:textSize="18sp"
         android:visibility="invisible"
         tools:visibility="visible"/>
+
     <Button
         android:id="@+id/btnCalc"
         android:layout_width="match_parent"
