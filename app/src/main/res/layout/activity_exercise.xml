@@ -8,7 +8,7 @@
     
     <Toolbar
         app:layout_constraintTop_toTopOf="parent"
-        android:id="@+id/toolbar_act"
+        android:id="@+id/toolbaracti"
         android:layout_width="match_parent"
         android:theme="@style/toolbarTheme"
         android:layout_height="?android:attr/actionBarSize"
@@ -36,7 +36,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/toolbar_act"
+        app:layout_constraintTop_toBottomOf="@id/toolbaracti"
         >
 
         <ProgressBar
@@ -105,7 +105,7 @@
         android:src="@drawable/jumpingjacks"
         android:visibility="invisible"
         app:layout_constraintBottom_toTopOf="@id/tvExercise"
-        app:layout_constraintTop_toBottomOf="@id/toolbar_act"/>
+        app:layout_constraintTop_toBottomOf="@id/toolbaracti"/>
 
     <TextView
         android:layout_width="wrap_content"

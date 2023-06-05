@@ -40,7 +40,9 @@ class ExerciseActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
         tts=TextToSpeech(this,this)
 
 
-        setActionBar(binding.toolbarAct)
+        setActionBar(binding.toolbaracti)
+
+
 
         exerciseList=Constants.defaultExerciseList()
 
@@ -79,8 +81,6 @@ class ExerciseActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
         }
         dialogBinding.btnNo.setOnClickListener{
             customDialog.dismiss()
-
-
 
         }
         customDialog.show()
