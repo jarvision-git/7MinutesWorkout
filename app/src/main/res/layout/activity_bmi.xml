@@ -18,6 +18,43 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <RadioGroup
+        android:id="@+id/rgUnit"
+        app:layout_constraintTop_toBottomOf="@+id/BmiToolbar"
+        android:layout_marginTop="20dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/radio_group_bg"
+        android:orientation="horizontal">
+        <RadioButton
+            android:id="@+id/rbUnit"
+            android:layout_width="0dp"
+            android:layout_height="35dp"
+            android:layout_weight="0.5"
+            android:background="@drawable/unit_selector"
+            android:checked="true"
+            android:gravity="center"
+            android:text="METRIC UNITS"
+            android:textColor="@drawable/unit_color_selector"
+            android:textSize="16sp"
+            android:textStyle="bold"/>
+
+        <RadioButton
+            android:id="@+id/rbUS"
+            android:layout_width="0dp"
+            android:layout_height="35dp"
+            android:layout_weight="0.5"
+            android:background="@drawable/unit_selector"
+            android:checked="true"
+            android:gravity="center"
+            android:text="US UNITS"
+            android:textColor="@drawable/unit_color_selector"
+            android:textSize="16sp"
+            android:textStyle="bold"/>
+
+    </RadioGroup>
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/tvWeight"
         android:layout_width="match_parent"
@@ -25,7 +62,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         android:layout_margin="10dp"
-        app:layout_constraintTop_toBottomOf="@+id/BmiToolbar"
+        app:layout_constraintTop_toBottomOf="@+id/rgUnit"
+        android:layout_marginTop="20dp"
         android:textColorHint="@color/colorAccent"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
