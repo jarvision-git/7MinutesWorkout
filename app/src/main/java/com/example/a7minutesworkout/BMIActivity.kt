@@ -2,6 +2,7 @@ package com.example.a7minutesworkout
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
@@ -11,6 +12,7 @@ import java.math.RoundingMode
 
 class BMIActivity : AppCompatActivity() {
     private lateinit var binding:ActivityBmiBinding
+    private var unit=true
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding= ActivityBmiBinding.inflate(layoutInflater)
@@ -29,8 +31,9 @@ class BMIActivity : AppCompatActivity() {
             true // default to enabled
         ) {
             override fun handleOnBackPressed() {
-
+                this@BMIActivity.finish()
             }
+
         }
         onBackPressedDispatcher.addCallback(
             this, // LifecycleOwner
@@ -41,7 +44,15 @@ class BMIActivity : AppCompatActivity() {
         binding.btnCalc.setOnClickListener {
             if (validate())
             {
-                val height:Float=binding.Height.text.toString().toFloat()/100
+                val height:Float
+                if(unit==true) {
+                    height = binding.Height.text.toString().toFloat() / 100
+                }
+                else{
+
+                    height=((binding.usHeightft.text.toString().toFloat()*30.48 + binding.usHeightin.text.toString().toFloat()*2.54).toFloat())/100
+
+                }
                 val weight:Float=binding.Weight.text.toString().toFloat()
 
                 val bmi=weight/(height*height)
@@ -52,6 +63,20 @@ class BMIActivity : AppCompatActivity() {
             {
                 Toast.makeText(this@BMIActivity,"Please enter valid values.",Toast.LENGTH_SHORT).show()
             }
+        }
+
+        binding.rbUS.setOnClickListener {
+            binding.tvHeight.visibility=View.INVISIBLE
+            binding.tvUSHeightft.visibility=View.VISIBLE
+            binding.tvUSHeightin.visibility=View.VISIBLE
+            unit=false
+
+        }
+        binding.rbUnit.setOnClickListener {
+            binding.tvHeight.visibility=View.VISIBLE
+            binding.tvUSHeightft.visibility=View.INVISIBLE
+            binding.tvUSHeightin.visibility=View.INVISIBLE
+            unit=true
         }
 
     }
