@@ -2,8 +2,14 @@ package com.example.a7minutesworkout
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.OnBackPressedCallback
+import androidx.lifecycle.lifecycleScope
 import com.example.a7minutesworkout.databinding.ActivityFinishBinding
+import kotlinx.coroutines.launch
+import java.text.SimpleDateFormat
+import java.util.Calendar
+import java.util.Locale
 
 class FinishActivity : AppCompatActivity() {
     private lateinit var binding: ActivityFinishBinding
@@ -37,6 +43,16 @@ class FinishActivity : AppCompatActivity() {
             this@FinishActivity.finish()
         }
 
+    }
+
+    private fun addDateToDatabase(historyDao: HistoryDao)
+    {
+        val c=Calendar.getInstance()
+        val dateTime=c.time
+        Log.e("Date",""+dateTime)
+
+        val sdf=SimpleDateFormat("dd MMM yyyy HH:mm:ss", Locale.getDefault())
+        lifecycleScope.launch { historyDao.insert(HistoryEntity("")) }
 
     }
 }
