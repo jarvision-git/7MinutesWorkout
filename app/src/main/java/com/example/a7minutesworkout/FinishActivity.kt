@@ -2,10 +2,41 @@ package com.example.a7minutesworkout
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.activity.OnBackPressedCallback
+import com.example.a7minutesworkout.databinding.ActivityFinishBinding
 
 class FinishActivity : AppCompatActivity() {
+    private lateinit var binding: ActivityFinishBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_finish)
+        binding= ActivityFinishBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+
+        setSupportActionBar(binding.FinisshToolbar)
+
+        if (supportActionBar!=null)
+        {
+            supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        }
+
+        val callback = object : OnBackPressedCallback(
+            true // default to enabled
+        ) {
+            override fun handleOnBackPressed() {
+                this@FinishActivity.finish()
+            }
+
+        }
+        onBackPressedDispatcher.addCallback(
+            this, // LifecycleOwner
+            callback
+        )
+
+        binding.btnFinish.setOnClickListener {
+            this@FinishActivity.finish()
+        }
+
+
     }
 }
