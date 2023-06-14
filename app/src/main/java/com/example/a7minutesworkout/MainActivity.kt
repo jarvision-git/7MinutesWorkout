@@ -27,10 +27,7 @@ class MainActivity : AppCompatActivity() {
 
         }
 
-        binding.flHistory.setOnClickListener {
-            val intent=Intent(this,HistoryActivity::class.java)
-            startActivity(intent)
-        }
+
     }
 
 

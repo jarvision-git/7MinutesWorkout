@@ -16,13 +16,12 @@ class FinishActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding= ActivityFinishBinding.inflate(layoutInflater)
+        binding = ActivityFinishBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         setSupportActionBar(binding.FinisshToolbar)
 
-        if (supportActionBar!=null)
-        {
+        if (supportActionBar != null) {
             supportActionBar?.setDisplayHomeAsUpEnabled(true)
         }
 
@@ -45,14 +44,6 @@ class FinishActivity : AppCompatActivity() {
 
     }
 
-    private fun addDateToDatabase(historyDao: HistoryDao)
-    {
-        val c=Calendar.getInstance()
-        val dateTime=c.time
-        Log.e("Date",""+dateTime)
 
-        val sdf=SimpleDateFormat("dd MMM yyyy HH:mm:ss", Locale.getDefault())
-        lifecycleScope.launch { historyDao.insert(HistoryEntity("")) }
 
-    }
 }
