@@ -154,6 +154,7 @@ class ExerciseActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
     fun Destroy() {
 
         player?.stop()
+        player!!.release()
         if (restTimer!=null)
         {
             Log.i("Status exit","rest timer Working")
