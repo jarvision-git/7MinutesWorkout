@@ -21,6 +21,7 @@ import java.lang.Exception
 import java.util.Locale
 
 class ExerciseActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
+    private var finish=0
     private var restTimer: CountDownTimer?=null
     private var restprogress=0
     private var exerciseTimer: CountDownTimer?=null
@@ -77,7 +78,8 @@ class ExerciseActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
         customDialog.setCanceledOnTouchOutside(false)
         dialogBinding.btnYes.setOnClickListener{
 
-            Destroy()
+            this@ExerciseActivity.finish()
+
 
             customDialog.dismiss()
 
@@ -99,72 +101,80 @@ class ExerciseActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
 
     private fun setupRestView(){
 
-        try{
-            val soundURI= Uri.parse("android.resource://com.example.a7minutesworkout/"+R.raw.bell)
-            player=MediaPlayer.create(applicationContext,soundURI)
-            player?.isLooping=false
-            player?.start()
+        if (finish!=1) {
+            try {
+                val soundURI =
+                    Uri.parse("android.resource://com.example.a7minutesworkout/" + R.raw.bell)
+                player = MediaPlayer.create(applicationContext, soundURI)
+                player?.isLooping = false
+                player?.start()
+            } catch (e: Exception) {
+                e.printStackTrace()
+            }
+
+            binding.flprogbar.visibility = View.VISIBLE
+            binding.flprogbar2.visibility = View.INVISIBLE
+            binding.tvTitle.visibility = View.VISIBLE
+            binding.tvExercise.visibility = View.INVISIBLE
+            binding.ivimage.visibility = View.INVISIBLE
+            binding.tvUpcoming.visibility = View.VISIBLE
+            binding.exerciseName.visibility = View.VISIBLE
+
+
+            binding.exerciseName.text = exerciseList!![currentExercisePosition + 1].getName()
+
+
+
+
+            if (restTimer != null) {
+                restTimer?.cancel()
+                restprogress = 0
+            }
+
+            setRestProgressBar()
         }
-        catch(e:Exception){
-            e.printStackTrace()
-        }
-
-        binding.flprogbar.visibility=View.VISIBLE
-        binding.flprogbar2.visibility=View.INVISIBLE
-        binding.tvTitle.visibility=View.VISIBLE
-        binding.tvExercise.visibility=View.INVISIBLE
-        binding.ivimage.visibility=View.INVISIBLE
-        binding.tvUpcoming.visibility=View.VISIBLE
-        binding.exerciseName.visibility=View.VISIBLE
-
-
-        binding.exerciseName.text= exerciseList!![currentExercisePosition+1].getName()
-
-
-
-
-        if(restTimer!=null)
-        {
-            restTimer?.cancel()
-            restprogress=0
-        }
-
-        setRestProgressBar()
     }
 
     private fun setRestProgressBar(){
-        binding.progbar.progress=restprogress
-        restTimer=object: CountDownTimer(2000,1000)
-        {
-            override fun onTick(millisUntilFinished: Long) {
-                restprogress++
-                binding.progbar.progress=2-restprogress
-                binding.timer.text=(2-restprogress).toString()
-            }
 
-            override fun onFinish() {
-                currentExercisePosition++
-                exerciseList!![currentExercisePosition].setIsSelected(true)
-                exerciseAdapter!!.notifyDataSetChanged()
-                setupExerciseView()
-            }
-        }.start()
+        if (finish!=1) {
+            binding.progbar.progress = restprogress
+            restTimer = object : CountDownTimer(2000, 1000) {
+                override fun onTick(millisUntilFinished: Long) {
+                    restprogress++
+                    binding.progbar.progress = 2 - restprogress
+                    binding.timer.text = (2 - restprogress).toString()
+                }
+
+                override fun onFinish() {
+                    currentExercisePosition++
+                    exerciseList!![currentExercisePosition].setIsSelected(true)
+                    exerciseAdapter!!.notifyDataSetChanged()
+                    setupExerciseView()
+                }
+            }.start()
+        }
     }
 
-    fun Destroy() {
+    override fun onDestroy() {
+        super.onDestroy()
+        finish=1
 
         player?.stop()
         player!!.release()
+        player=null
         if (restTimer!=null)
         {
             Log.i("Status exit","rest timer Working")
             restTimer?.cancel()
+            restTimer=null
             restprogress=0
         }
         if (exerciseTimer!=null)
         {
             Log.i("Status exit","exercise timer Working")
             restTimer?.cancel()
+            exerciseTimer=null
             restprogress=0
         }
 
@@ -175,8 +185,6 @@ class ExerciseActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
             tts?.shutdown()
         }
         Log.i("Status exit","maybe Working")
-        this@ExerciseActivity.finish()
-
     }
 
 
