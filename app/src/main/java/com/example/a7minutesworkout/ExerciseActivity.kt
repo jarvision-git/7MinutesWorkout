@@ -76,7 +76,9 @@ class ExerciseActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
         customDialog.setContentView(dialogBinding.root)
         customDialog.setCanceledOnTouchOutside(false)
         dialogBinding.btnYes.setOnClickListener{
-            this@ExerciseActivity.finish()
+
+            Destroy()
+
             customDialog.dismiss()
 
         }
@@ -132,12 +134,12 @@ class ExerciseActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
 
     private fun setRestProgressBar(){
         binding.progbar.progress=restprogress
-        restTimer=object: CountDownTimer(10000,1000)
+        restTimer=object: CountDownTimer(2000,1000)
         {
             override fun onTick(millisUntilFinished: Long) {
                 restprogress++
-                binding.progbar.progress=10-restprogress
-                binding.timer.text=(10-restprogress).toString()
+                binding.progbar.progress=2-restprogress
+                binding.timer.text=(2-restprogress).toString()
             }
 
             override fun onFinish() {
@@ -149,18 +151,30 @@ class ExerciseActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
         }.start()
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
+    fun Destroy() {
+
+        player?.stop()
         if (restTimer!=null)
         {
+            Log.i("Status exit","rest timer Working")
             restTimer?.cancel()
             restprogress=0
         }
+        if (exerciseTimer!=null)
+        {
+            Log.i("Status exit","exercise timer Working")
+            restTimer?.cancel()
+            restprogress=0
+        }
+
         if (tts!=null)
         {
+
             tts?.stop()
             tts?.shutdown()
         }
+        Log.i("Status exit","maybe Working")
+        this@ExerciseActivity.finish()
 
     }
 
@@ -190,12 +204,12 @@ class ExerciseActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
 
     private fun setExerciseProgressBar() {
         binding.progbar2.progress=exerciseprogress
-        exerciseTimer=object: CountDownTimer(30000,1000)
+        exerciseTimer=object: CountDownTimer(5000,1000)
         {
             override fun onTick(millisUntilFinished: Long) {
                 exerciseprogress++
-                binding.progbar2.progress=30-exerciseprogress
-                binding.timer2.text=(30-exerciseprogress).toString()
+                binding.progbar2.progress=5-exerciseprogress
+                binding.timer2.text=(5-exerciseprogress).toString()
 
             }
 
