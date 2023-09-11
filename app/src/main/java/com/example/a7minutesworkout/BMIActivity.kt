@@ -22,7 +22,7 @@ class BMIActivity : AppCompatActivity() {
         setSupportActionBar(binding.BmiToolbar)
         if (supportActionBar!=null)
         {
-            supportActionBar?.setDisplayHomeAsUpEnabled(true)
+
             supportActionBar?.title="Calculate BMI"
 
         }
@@ -84,7 +84,11 @@ class BMIActivity : AppCompatActivity() {
     private fun validate():Boolean{
         var isValid=true
 
-        if(binding.Height.text.toString().isEmpty())
+        if( (unit==true) && binding.Height.text.toString().isEmpty())
+        {
+            isValid=false
+        }
+        else if( (unit==false) && (binding.usHeightin.text.toString().isEmpty() || binding.usHeightft.text.toString().isEmpty()) )
         {
             isValid=false
         }
